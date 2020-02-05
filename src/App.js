@@ -23,7 +23,7 @@ function App() {
      
     getArrFromFirebase().then(snapshot=>{
       var tempList = []
-      for(var i = 0;i <9;i++){
+      for(var i = 0;i <=9;i++){
           tempList.push({
             value : snapshot.val()[i],
             type: (snapshot.val()[i]) ? "active": ((snapshot.val()[i-1])? "warn" : "disabled") 

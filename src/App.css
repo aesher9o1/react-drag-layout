@@ -23,11 +23,15 @@ button {
 }
 
 ul {
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+       column-count: 2;
   list-style-type: none;
   list-style-position: inside;
   padding-inline-start: 0px !important;
   transition: 'all 500ms';
 }
+
 
 .active{
   background-color: #46f5cc;
@@ -69,4 +73,16 @@ ul {
   -webkit-box-pack: justify;
   justify-content: space-between;
   padding: 0px 16px;
+}
+
+
+@media only screen and (max-width: 600px) {
+ul{
+  -webkit-column-count: 1;
+  -moz-column-count: 1;
+       column-count: 1;
+}
+.card {
+  margin: 1em 0 1em 0;
+}
 }
