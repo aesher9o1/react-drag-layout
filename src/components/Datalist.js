@@ -16,7 +16,7 @@ function Datalist(props) {
 
         for (let i = 0; i < props.options.length; i++) {
             const item = props.options[i]
-            if (item.name.includes(e.target.value.toLowerCase()))
+            if (item.name.startsWith(e.target.value.toLowerCase()))
                 filteredOptions.push(item)
         }
 
