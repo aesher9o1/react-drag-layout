@@ -108,7 +108,7 @@ function Drag(props) {
                     onDragOver={e => onDragOver(idx)}
                     onDragStart={e => onDragStart(e, idx)}
                     onDragEnd={onDragEnd}>
-                    <span style={{ display: "flex", alignItems: "center" }}>{item.value || "Add your skill here"}</span>
+                    <span style={{ display: "flex", alignItems: "center" }}>{(item.value) ? `${idx + 1}.  ${item.value}` : "Add your skill here"}</span>
                     <button style={{ color: "white", opacity: 0.8 }} onClick={() => deleteItem(idx)}>
                         <svg width="24" height="24" fill="none" stroke="grey" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"   ><circle cx="12" cy="12" r="10"></circle><path d="M15 9l-6 6M9 9l6 6"></path>
                         </svg>

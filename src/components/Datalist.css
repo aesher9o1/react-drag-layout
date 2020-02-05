@@ -1,16 +1,7 @@
-.datalistMenu {
-    background: white;
-    position: absolute;
-    top: 24em;
-    left: 0em;
-    width: 100%;
-    padding: 16px;
-}
-
 .wrapper {
     position: absolute;
     padding: 0px 16px 16px 16px;
-    width: 95%;
+    width: 41%;
     top: 3.5em;
     left: 0;
     z-index: 1000;
@@ -23,4 +14,8 @@
 
 .listItem {
     padding-top: 16px;
+}
+
+.wrapper:hover {
+    cursor: pointer;
 }

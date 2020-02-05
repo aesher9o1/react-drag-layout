@@ -40,7 +40,7 @@ function Datalist(props) {
     }
 
     return (
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'absolute' }}>
             <input type="text" value={inputValue} onChange={updateFilter} placeholder="Add your skill here" />
             {(isListVisible) ?
                 <div className="wrapper">
