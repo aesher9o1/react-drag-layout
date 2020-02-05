@@ -1,0 +1,76 @@
+.card {
+    width: 90vw;
+    margin: 2em;
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px 0px;
+    border-radius: 8px;
+    padding: 40px;
+}
+
+
+ul {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    list-style-type: none;
+    list-style-position: inside;
+    padding-inline-start: 0px !important;
+    transition: 'all 500ms';
+}
+
+
+.active {
+    background-color: #5aedcb !important;
+}
+
+.warn {
+    background-color: #c7fff2 !important;
+
+}
+
+.disabled {
+    background-color: #f2f2f3 !important;
+}
+
+.skills-list--item {
+    display: flex;
+    background-color: rgb(71, 133, 255);
+    color: grey;
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1em;
+    user-select: none;
+    margin-left: 0;
+    border-radius: 3px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(11, 99, 83, 0.2);
+    height: 50px;
+    border-image: initial;
+    margin-bottom: 16px;
+}
+
+.skills-list--item>div {
+    display: flex;
+    height: 54px;
+    width: 100%;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 0px 16px;
+}
+
+
+@media only screen and (max-width: 600px) {
+    ul {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+    }
+
+    .card {
+        margin: 1em 0 1em 0;
+    }
+}
