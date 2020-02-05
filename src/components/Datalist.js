@@ -12,15 +12,12 @@ function Datalist(props) {
     }, [props.options])
 
     const updateFilter = (e) => {
-
-
         let filteredOptions = []
 
         for (let i = 0; i < props.options.length; i++) {
             const item = props.options[i]
             if (item.name.includes(e.target.value.toLowerCase()))
                 filteredOptions.push(item)
-
         }
 
         setFilteredOptions(filteredOptions)
@@ -28,21 +25,23 @@ function Datalist(props) {
 
         if (filteredOptions.length === props.options.length)
             setIsListVisible(false)
+        else if (filteredOptions.length === 0)
+            filteredOptions.push({
+                name: e.target.value
+            })
         else
             setIsListVisible(true)
     }
 
     const handleItemClick = (option) => {
         setIsListVisible(false)
-        setInputValue('')
-        setInputValue(capitalizeFirstLetter(option.name))
         props.handleDropdownChange(option)
-
+        setInputValue('')
     }
 
     return (
         <div style={{ position: 'relative' }}>
-            <input type="text" value={inputValue} onChange={updateFilter} />
+            <input type="text" value={inputValue} onChange={updateFilter} placeholder="Add your skill here" />
             {(isListVisible) ?
                 <div className="wrapper">
                     {
@@ -57,4 +56,4 @@ function Datalist(props) {
     )
 }
 
-export default Datalist
+export default React.memo(Datalist)

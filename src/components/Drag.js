@@ -64,7 +64,8 @@ function Drag(props) {
     }
 
     const handleDropdownChange = (option) => {
-        const updatedList = [...skills.original, capitalizeFirstLetter(option.name)]
+        const updatedList = Array.from(new Set([...skills.original, capitalizeFirstLetter(option.name)]))
+
 
         setArrToFirebase(updatedList)
         setSkills({
@@ -72,6 +73,17 @@ function Drag(props) {
             html: generateSkillsHTMLFromArray(updatedList)
         })
 
+    }
+
+    const deleteItem = (idx) => {
+        let modifiedArr = [...skills.original]
+        modifiedArr.splice(idx, 1)
+
+        setArrToFirebase(modifiedArr)
+        setSkills({
+            original: modifiedArr,
+            html: generateSkillsHTMLFromArray(modifiedArr)
+        })
     }
 
 
@@ -97,7 +109,7 @@ function Drag(props) {
                     onDragStart={e => onDragStart(e, idx)}
                     onDragEnd={onDragEnd}>
                     <span style={{ display: "flex", alignItems: "center" }}>{item.value || "Add your skill here"}</span>
-                    <button style={{ color: "white", opacity: 0.8 }}>
+                    <button style={{ color: "white", opacity: 0.8 }} onClick={() => deleteItem(idx)}>
                         <svg width="24" height="24" fill="none" stroke="grey" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"   ><circle cx="12" cy="12" r="10"></circle><path d="M15 9l-6 6M9 9l6 6"></path>
                         </svg>
                     </button>
@@ -112,7 +124,7 @@ function Drag(props) {
             <b>The skills you mention here will help hackathon organizers in assessing you as a potential participant</b>
             <ul>
                 {skills.html.map((item, idx) =>
-                    (item.type === "warn") ? renderOptionLayout() : renderNormalLayout(item, idx)
+                    (item.type === "warn" || (idx === 0 && item.value === undefined)) ? renderOptionLayout() : renderNormalLayout(item, idx)
                 )}
             </ul>
         </div>

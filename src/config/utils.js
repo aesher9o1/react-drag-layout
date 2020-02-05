@@ -1,5 +1,9 @@
 import firebase from './firebase'
 
+const generateDummyData = () => {
+
+}
+
 export const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1)
 }
@@ -13,17 +17,23 @@ export const setDatalistFromArray = () => {
 }
 
 export const setArrToFirebase = (arr) => {
+    console.log(arr)
     return firebase.database().ref('dummy').set(arr)
 }
 
 export const getArrFromFirebase = () => {
     return new Promise(function (resolve, reject) {
         firebase.database().ref('dummy').once('value').then(snapshot => {
-
-            resolve({
-                original: snapshot.val(),
-                html: generateSkillsHTMLFromArray(snapshot.val())
-            })
+            if (snapshot.exists())
+                resolve({
+                    original: snapshot.val(),
+                    html: generateSkillsHTMLFromArray(snapshot.val())
+                })
+            else
+                resolve({
+                    original: [],
+                    html: generateSkillsHTMLFromArray([])
+                })
         })
     })
 }
@@ -46,6 +56,7 @@ export const updateFirebase = (arr) => {
 
     // firebase.database().ref('dummy').set(arr)
 }
+
 
 
 export const swap = (input, x, y) => {
