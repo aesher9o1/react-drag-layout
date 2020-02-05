@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Drag from './components/Drag'
+import Tasktwo from './components/Tasktwo'
 import axios from 'axios'
 import skills from './config/demoSkills.json'
 
@@ -19,6 +20,7 @@ function App() {
   return (
     <div>
       <Drag options={options} />
+      <Tasktwo />
     </div>
 
   )

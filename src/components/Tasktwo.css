@@ -1,0 +1,30 @@
+section {
+    text-align: center;
+}
+
+.tasktwo {
+    width: 30%;
+}
+
+.num-hours {
+    font-size: 250px;
+    color: #017ffa;
+    font-style: normal;
+    font-weight: 900;
+    padding: 0;
+    margin-bottom: -22em;
+}
+
+.hours {
+
+    font-weight: 900;
+    font-size: 70px;
+    font-style: normal;
+    margin-bottom: -22em;
+}
+
+.of {
+    font-weight: 900;
+    font-size: 60px;
+    font-style: normal;
+}
