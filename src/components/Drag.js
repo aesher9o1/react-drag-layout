@@ -55,47 +55,47 @@ function Drag(props) {
 
         setArrToFirebase(swappedArr)
         setItems(swappedArr)
-
     }
 
     const handleDropdownChange = (e) => {
         const value = e.target.value
         setdropdownValue(value)
-
     }
 
 
     const renderOptionLayout = () => {
-
         return (
-            <div>
+            <li
+                key="datalist-field"
+                className={`skills-list--item warn`}>
                 <input
-                    name="datalist"
-                    id="datalist"
+                    key="datalist-field"
                     list="skills"
                     placeholder="Add your skill here"
                     value={dropdownValue}
                     onChange={handleDropdownChange}
                 />
                 <datalist id="skills"> {options}</datalist>
-            </div>
+            </li>
         )
     }
 
     const renderNormalLayout = (item, idx) => {
         return (
-            <div
-                className="drag"
-                draggable
-                onDragOver={e => onDragOver(idx)}
-                onDragStart={e => onDragStart(e, idx)}
-                onDragEnd={onDragEnd}>
-                <span style={{ display: "flex", alignItems: "center" }}>{item.value || "Add your skill here"}</span>
-                <button style={{ color: "white", opacity: 0.8 }}>
-                    <svg width="24" height="24" fill="none" stroke="grey" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"   ><circle cx="12" cy="12" r="10"></circle><path d="M15 9l-6 6M9 9l6 6"></path>
-                    </svg>
-                </button>
-            </div>
+            <li key={item.value || getRandomKey()} onDragOver={() => onDragOver(idx)} className={`skills-list--item ${item.type}`}>
+                <div
+                    className="drag"
+                    draggable
+                    onDragOver={e => onDragOver(idx)}
+                    onDragStart={e => onDragStart(e, idx)}
+                    onDragEnd={onDragEnd}>
+                    <span style={{ display: "flex", alignItems: "center" }}>{item.value || "Add your skill here"}</span>
+                    <button style={{ color: "white", opacity: 0.8 }}>
+                        <svg width="24" height="24" fill="none" stroke="grey" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"   ><circle cx="12" cy="12" r="10"></circle><path d="M15 9l-6 6M9 9l6 6"></path>
+                        </svg>
+                    </button>
+                </div>
+            </li>
         )
     }
 
@@ -104,11 +104,9 @@ function Drag(props) {
         <div className="card">
             <b>The skills you mention here will help hackathon organizers in assessing you as a potential participant</b>
             <ul>
-                {items.map((item, idx) => (
-                    <li key={item.value || getRandomKey()} onDragOver={() => onDragOver(idx)} className={`skills-list--item ${item.type}`}>
-                        {(item.type === "warn") ? renderOptionLayout() : renderNormalLayout(item, idx)}
-                    </li>
-                ))}
+                {items.map((item, idx) =>
+                    (item.type === "warn") ? renderOptionLayout() : renderNormalLayout(item, idx)
+                )}
             </ul>
         </div>
 
