@@ -11,9 +11,16 @@ export const getRandomKey = ()=>{
 }
 
 export const setArrToFirebase = (arr)=>{
-   
+    const temp =[]
+    for(var i = 0;i<=9;i++){
+        if(arr[i].value){
+            temp.push(arr[i].value)
+        }
+    }
+
+  return firebase.database().ref('dummy').set(temp)
 }
 
-export function getArrFromFirebase(){
+export const getArrFromFirebase=()=>{
     return firebase.database().ref('dummy').once('value')
 }

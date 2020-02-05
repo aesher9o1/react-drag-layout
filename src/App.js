@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import axios from 'axios'
 import skills from './config/demoSkills.json'
-import firebase from './config/firebase'
-import {getRandomKey, capitalizeFirstLetter, getArrFromFirebase} from './config/utils'
+import {getRandomKey, capitalizeFirstLetter, getArrFromFirebase, setArrToFirebase} from './config/utils'
 
 
 function App() {
@@ -62,10 +61,15 @@ function App() {
   }
 
   const onDragEnd = () => {
+    if(!items[draggableItemOptions.draggedOnIndex].value)
+      return
+
     let tempItems = items.filter(item => item !== items[draggableItemOptions.dragStartIndex])
     tempItems.splice(draggableItemOptions.draggedOnIndex, 0, items[draggableItemOptions.dragStartIndex])
    
     setItems(tempItems)
+
+    setArrToFirebase(tempItems)
   }
 
 
