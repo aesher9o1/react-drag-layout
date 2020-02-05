@@ -3,7 +3,7 @@ import './App.css'
 import axios from 'axios'
 import skills from './config/demoSkills.json'
 import firebase from './config/firebase'
-import {getRandomKey, capitalizeFirstLetter} from './config/utils'
+import {getRandomKey, capitalizeFirstLetter, getArrFromFirebase} from './config/utils'
 
 
 function App() {
@@ -14,23 +14,23 @@ function App() {
     dragStartIndex : null,
     draggedOnIndex: null
   })
-  
+
 
   const setDatalistFromArray =(arr)=>{
     let temp = []
     for (const tag of arr)
       temp.push(<option value={capitalizeFirstLetter(tag.name)} key={tag.name} />)
-
-    firebase.database().ref('dummy').once('value').then(snapshot=>{
+     
+    getArrFromFirebase().then(snapshot=>{
       var tempList = []
-      for(var i = 0;i <9;i++)
-          tempList.push(snapshot.val()[i])
-      
+      for(var i = 0;i <9;i++){
+          tempList.push({
+            value : snapshot.val()[i],
+            type: (snapshot.val()[i]) ? "active": ((snapshot.val()[i-1])? "warn" : "disabled") 
+          })
+      }
       console.log(tempList)
       setItems(tempList)
-      
-        
-      
     })
 
     setOptions(temp)
@@ -76,14 +76,14 @@ function App() {
       </div>
       <ul>
         {items.map((item, idx) => (
-          <li key={item || getRandomKey()} onDragOver={() => onDragOver(idx)} className="skills-list--item">
+          <li key={item.value || getRandomKey()} onDragOver={() => onDragOver(idx)} className={`skills-list--item ${item.type}`}>
             <div
               className="drag"
               draggable
               onDragOver = {e=>onDragOver(idx)}
               onDragStart={e => onDragStart(e, idx)}
               onDragEnd={onDragEnd}>
-              <span style={{ display: "flex", alignItems: "center" }}>{item}</span>
+              <span style={{ display: "flex", alignItems: "center" }}>{item.value || "Add your skill here"}</span>
               <button style={{ color: "white", opacity: 0.8 }}>
                 <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"   ><circle cx="12" cy="12" r="10"></circle><path d="M15 9l-6 6M9 9l6 6"></path>
                 </svg>

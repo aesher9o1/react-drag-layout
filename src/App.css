@@ -24,10 +24,21 @@ button {
 
 ul {
   list-style-type: none;
-  columns: 2;
   list-style-position: inside;
   padding-inline-start: 0px !important;
   transition: 'all 500ms';
+}
+
+.active{
+  background-color: #46f5cc;
+}
+.warn{
+  background-color: #c7fff2!important;
+  color: grey!important
+}
+.disabled{
+  background-color: #f2f2f3!important;
+  color: grey!important
 }
 
 .skills-list--item {
