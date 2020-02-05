@@ -34,21 +34,20 @@ ul {
 
 
 .active{
-  background-color: #46f5cc;
+  background-color: #5aedcb!important;
 }
 .warn{
   background-color: #c7fff2!important;
-  color: grey!important
+
 }
 .disabled{
   background-color: #f2f2f3!important;
-  color: grey!important
 }
 
 .skills-list--item {
   display: flex;
   background-color: rgb(71, 133, 255);
-  color: rgb(255, 255, 255);
+  color: grey;
   font-family: "Nunito Sans", sans-serif;
   font-weight: 600;
   font-size: 1em;

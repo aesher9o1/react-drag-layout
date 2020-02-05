@@ -1,13 +1,15 @@
 import firebase from './firebase'
 
-
-
 export const capitalizeFirstLetter = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1)
   }
 
 export const getRandomKey = ()=>{
     return new Date().getTime() * Math.random()
+}
+
+export const setDatalistFromArray = ()=>{
+
 }
 
 export const setArrToFirebase = (arr)=>{
@@ -22,5 +24,28 @@ export const setArrToFirebase = (arr)=>{
 }
 
 export const getArrFromFirebase=()=>{
-    return firebase.database().ref('dummy').once('value')
+    return new Promise(function(resolve, reject){
+        firebase.database().ref('dummy').once('value').then(snapshot=>{
+            var tempList = []
+            for(var i = 0;i <=9;i++){
+                tempList.push({
+                  value : snapshot.val()[i],
+                  type: (snapshot.val()[i]) ? "active": ((snapshot.val()[i-1])? "warn" : "disabled") 
+                })
+            }
+            
+            resolve(tempList)
+        })
+    })
+
+    
+}
+
+export const getLayoutForCondition = (condition)=>{
+    switch(condition){
+        case "active":
+            break;
+        case "warn":
+            break; 
+    }
 }
