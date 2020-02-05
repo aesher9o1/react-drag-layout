@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './Datalist.css'
+import { capitalizeFirstLetter } from '../config/utils'
 
 function Datalist(props) {
     const [filteredOptions, setFilteredOptions] = useState(props.options)
@@ -33,14 +34,10 @@ function Datalist(props) {
 
     const handleItemClick = (option) => {
         setIsListVisible(false)
-        setInputValue(option.name)
-    }
+        setInputValue('')
+        setInputValue(capitalizeFirstLetter(option.name))
+        props.handleDropdownChange(option)
 
-    const handleVisibility = (e) => {
-
-        if (e.target.value.length < 2)
-            return
-        setIsListVisible(!isListVisible)
     }
 
     return (
@@ -50,7 +47,7 @@ function Datalist(props) {
                 <div className="wrapper">
                     {
                         filteredOptions.map((option, index) => {
-                            return (<div key={option.name} onClick={() => handleItemClick(option)} className="listItem">{option.name}</div>)
+                            return (<div key={option.name} onClick={() => handleItemClick(option)} className="listItem">{capitalizeFirstLetter(option.name)}</div>)
                         })
                     }
                 </div>

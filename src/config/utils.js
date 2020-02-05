@@ -13,30 +13,38 @@ export const setDatalistFromArray = () => {
 }
 
 export const setArrToFirebase = (arr) => {
-    const temp = []
-    for (var i = 0; i <= 9; i++) {
-        if (arr[i].value) {
-            temp.push(arr[i].value)
-        }
-    }
-
-    return firebase.database().ref('dummy').set(temp)
+    return firebase.database().ref('dummy').set(arr)
 }
 
 export const getArrFromFirebase = () => {
     return new Promise(function (resolve, reject) {
         firebase.database().ref('dummy').once('value').then(snapshot => {
-            var tempList = []
-            for (var i = 0; i <= 9; i++) {
-                tempList.push({
-                    value: snapshot.val()[i],
-                    type: (snapshot.val()[i]) ? "active" : ((snapshot.val()[i - 1]) ? "warn" : "disabled")
-                })
-            }
 
-            resolve(tempList)
+            resolve({
+                original: snapshot.val(),
+                html: generateSkillsHTMLFromArray(snapshot.val())
+            })
         })
     })
+}
+
+export const generateSkillsHTMLFromArray = (arr) => {
+    var tempList = []
+    for (var i = 0; i <= 9; i++) {
+        tempList.push({
+            value: arr[i],
+            type: (arr[i]) ? "active" : ((arr[i - 1]) ? "warn" : "disabled")
+        })
+    }
+    return tempList
+}
+
+export const updateFirebase = (arr) => {
+    arr = arr.filter(object => {
+        return object.value != null ? object.value : false
+    })
+
+    // firebase.database().ref('dummy').set(arr)
 }
 
 

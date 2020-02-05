@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import './Drag.css'
-import { getRandomKey, getArrFromFirebase, setArrToFirebase, capitalizeFirstLetter, swap } from '../config/utils'
+import { getRandomKey, getArrFromFirebase, setArrToFirebase, capitalizeFirstLetter, swap, generateSkillsHTMLFromArray } from '../config/utils'
 import Datalist from './Datalist'
 
 
 function Drag(props) {
 
     const [options, setOptions] = useState([])
-    const [items, setItems] = useState([])
+    const [skills, setSkills] = useState({
+        original: [],
+        html: []
+    })
     const [draggableItemOptions, setDraggableItemOptions] = useState({
         dragStartIndex: null,
         draggedOnIndex: null
     })
-    const [dropdownValue, setdropdownValue] = useState('')
 
     const generateOptionsHTMLFromArr = (arr) => {
         let temp = []
@@ -22,12 +24,11 @@ function Drag(props) {
     }
 
 
-
     useEffect(() => {
         if (props.options)
             setOptions(generateOptionsHTMLFromArr(props.options))
 
-        getArrFromFirebase().then(arr => setItems(arr))
+        getArrFromFirebase().then(obj => setSkills(obj))
     }, [props.options])
 
 
@@ -48,18 +49,29 @@ function Drag(props) {
     }
 
     const onDragEnd = () => {
-        if (!items[draggableItemOptions.draggedOnIndex].value)
+
+        if (!skills.html[draggableItemOptions.draggedOnIndex].value)
             return
 
-        const swappedArr = swap(items, draggableItemOptions.draggedOnIndex, draggableItemOptions.dragStartIndex)
+
+        const swappedArr = swap(skills.original, draggableItemOptions.draggedOnIndex, draggableItemOptions.dragStartIndex)
 
         setArrToFirebase(swappedArr)
-        setItems(swappedArr)
+        setSkills({
+            original: swappedArr,
+            html: generateSkillsHTMLFromArray(swappedArr)
+        })
     }
 
-    const handleDropdownChange = (e) => {
-        const value = e.target.value
-        setdropdownValue(value)
+    const handleDropdownChange = (option) => {
+        const updatedList = [...skills.original, capitalizeFirstLetter(option.name)]
+
+        setArrToFirebase(updatedList)
+        setSkills({
+            original: updatedList,
+            html: generateSkillsHTMLFromArray(updatedList)
+        })
+
     }
 
 
@@ -69,6 +81,7 @@ function Drag(props) {
                 key="datalist-field"
                 className={`skills-list--item warn`}>
                 <Datalist options={props.options}
+                    handleDropdownChange={handleDropdownChange}
                 />
             </li>
         )
@@ -98,7 +111,7 @@ function Drag(props) {
         <div className="card">
             <b>The skills you mention here will help hackathon organizers in assessing you as a potential participant</b>
             <ul>
-                {items.map((item, idx) =>
+                {skills.html.map((item, idx) =>
                     (item.type === "warn") ? renderOptionLayout() : renderNormalLayout(item, idx)
                 )}
             </ul>
