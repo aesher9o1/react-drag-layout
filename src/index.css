@@ -35,7 +35,7 @@ input {
   font-size: 15px;
   line-height: 27px;
   font-weight: 700;
-  padding-left: 16px;
+  padding-left: 0px;
 }
 
 input:focus {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './Drag.css'
 import { getRandomKey, getArrFromFirebase, setArrToFirebase, capitalizeFirstLetter, swap } from '../config/utils'
-
+import Datalist from './Datalist'
 
 
 function Drag(props) {
@@ -68,14 +68,8 @@ function Drag(props) {
             <li
                 key="datalist-field"
                 className={`skills-list--item warn`}>
-                <input
-                    key="datalist-field"
-                    list="skills"
-                    placeholder="Add your skill here"
-                    value={dropdownValue}
-                    onChange={handleDropdownChange}
+                <Datalist options={props.options}
                 />
-                <datalist id="skills"> {options}</datalist>
             </li>
         )
     }
