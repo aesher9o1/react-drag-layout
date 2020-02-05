@@ -1,82 +1,90 @@
-import React, {useState, useCallback} from 'react';
-import styled from 'styled-components';
-import Draggable from './Draggble';
+import React, { useState, useEffect } from 'react'
 import './App.css'
+import axios from 'axios'
 
-const HEIGHT = 80;
+function App() {
+  
+  const [options, setOptions] = useState([])
+  const [items, setItems] = useState(["🍰 Cake", "🍩 Donut", "🍎 Apple", "🍕 Pizza"])
+  const [draggableItemOptions, setDraggableItemOptions] = useState({
+    dragStartIndex : null,
+    draggedOnIndex: null
+  })
+  
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+  }
 
-const App = () => {
-  const items = [1,2,3,4,5,6];
-  const [state, setState] = useState({
-    order: items,
-    dragOrder: items,
-    draggedIndex: null
-  });
-	
-  const handleDrag = useCallback(({translation, id}) => {
-    const delta = Math.round(translation.y / HEIGHT);
-    const index = state.order.indexOf(id);
-    const dragOrder = state.order.filter(index => index !== id);
-		
-    dragOrder.splice(index + delta, 0, id);
-		
-    setState(state => ({
-      ...state,
-      draggedIndex: id,
-      dragOrder
-    }));
-  }, [state.order, items.length]);
-	
-  const handleDragEnd = useCallback(() => {
-    setState(state => ({
-      ...state,
-      order: state.dragOrder,
-      draggedIndex: null
-    }));
-  }, []);
-	
+  useEffect(() => {
+    // axios.get('https://api.stackexchange.com/2.2/tags?site=stackoverflow').then(res => {
+    //   let temp = []
+    //   for (const tag of res.data.items)
+    //     temp.push(<option value={capitalizeFirstLetter(tag.name)} key={tag.name} />)
+
+    //   setOptions(temp)
+    // })
+
+    // <label>Choose a browser from this list:
+
+    // <input list="browsers" name="myBrowser" /></label>
+    // <datalist id="browsers">
+    //   {options}
+    // </datalist>
+  }, [])
+
+
+  const onDragStart = (e, index) => {
+    setDraggableItemOptions({...draggableItemOptions, dragStartIndex:index})
+   
+
+    e.dataTransfer.effectAllowed = "move"
+    e.dataTransfer.setData("text/html", e.target.parentNode)
+    e.dataTransfer.setDragImage(e.target.parentNode, 20, 20)
+
+  }
+
+  const onDragOver = (index) => {
+    //hover on same place
+    if(draggableItemOptions.draggedOnIndex == index)
+      return
+
+    setDraggableItemOptions({...draggableItemOptions, draggedOnIndex:index})
+  }
+
+  const onDragEnd = () => {
+    let tempItems = items.filter(item => item !== items[draggableItemOptions.dragStartIndex])
+    tempItems.splice(draggableItemOptions.draggedOnIndex, 0, items[draggableItemOptions.dragStartIndex])
+   
+    setItems(tempItems)
+  }
+
+
   return (
     <div className="card">
-       <div>
+      <div>
         <b>The skills you mention here will help hackathon organizers in assessing you as a potential participant</b>
-        <section>
-        {items.map(index => {
-        const isDragging = state.draggedIndex === index;
-        const top = state.dragOrder.indexOf(index) * (HEIGHT + 10);
-        const draggedTop = state.order.indexOf(index) * (HEIGHT + 10);
-				
-        return (
-          <Draggable
-            key={index}
-            id={index}
-            onDrag={handleDrag}
-            onDragEnd={handleDragEnd}>
-
-            <Rect
-              isDragging={isDragging}
-              top={isDragging ? draggedTop : top}>
-             {index}
-            </Rect>
-
-          </Draggable>
-        );
-      })}
-        </section>
       </div>
+      <ul>
+        {items.map((item, idx) => (
+          <li key={item} onDragOver={() => onDragOver(idx)} className="skills-list--item">
+            <div
+              className="drag"
+              draggable
+              onDragOver = {e=>onDragOver(idx)}
+              onDragStart={e => onDragStart(e, idx)}
+              onDragEnd={onDragEnd}>
+              <span style={{ display: "flex", alignItems: "center" }}>{item}</span>
+              <button style={{ color: "white", opacity: 0.8 }}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"   ><circle cx="12" cy="12" r="10"></circle><path d="M15 9l-6 6M9 9l6 6"></path>
+                </svg>
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
-  );
-};
 
-export default App;
+  )
+}
 
-const Rect = styled.div`
-  width: 300px;
-  user-select: none;
-  height: ${HEIGHT}px;
-  background:#fff;
-  position: absolute;
-  transition : all 500ms;
-  top: ${({top}) => 100 + top}px;
-  font-size: 20px;
-  color: #777;
-`;
+export default App

@@ -27,6 +27,7 @@ ul {
   columns: 2;
   list-style-position: inside;
   padding-inline-start: 0px !important;
+  transition: 'all 500ms';
 }
 
 .skills-list--item {
