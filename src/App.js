@@ -2,24 +2,37 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import axios from 'axios'
 import skills from './config/demoSkills.json'
-import { getRandomKey, capitalizeFirstLetter, getArrFromFirebase, setArrToFirebase } from './config/utils'
+import { getRandomKey, getArrFromFirebase, setArrToFirebase, capitalizeFirstLetter } from './config/utils'
+
 
 
 function App() {
 
+  const WAIT_INTERVAL = 1000;
+  const ENTER_KEY = 13;
   const [options, setOptions] = useState([])
   const [items, setItems] = useState([])
   const [draggableItemOptions, setDraggableItemOptions] = useState({
     dragStartIndex: null,
     draggedOnIndex: null
   })
+  const [dropdownValue, setdropdownValue] = useState('')
+  var timer = null
+
+  const generateOptionsHTMLFromArr =(arr)=>{
+    let temp = []
+      for (const tag of arr)
+        temp.push(<option value={capitalizeFirstLetter(tag.name)} key={tag.name} />)
+    return temp
+}
+
 
 
   useEffect(() => {
     if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development')
-      setOptions(skills.items)
+      setOptions(generateOptionsHTMLFromArr(skills.items))
     else
-      axios.get('https://api.stackexchange.com/2.2/tags?site=stackoverflow').then(res => setOptions(res.data.items))
+      axios.get('https://api.stackexchange.com/2.2/tags?site=stackoverflow').then(res => setOptions(generateOptionsHTMLFromArr(res.data.items)))
 
     getArrFromFirebase().then(arr => setItems(arr))
 
@@ -53,13 +66,28 @@ function App() {
 
     setArrToFirebase(tempItems)
   }
+  
+  const handleDropdownChange=(e)=>{
+    const value = e.target.value
+    setdropdownValue(value)
+    
+  }
+
 
   const renderOptionLayout = () => {
-    console.log(options)
+
     return(
       <div>
-
-      </div>
+      <input 
+        name="datalist"
+        id="datalist"
+        list="skills" 
+        placeholder="Add your skill here" 
+        value = {dropdownValue}
+        onChange = {handleDropdownChange}
+        />
+      <datalist id="skills"> {options}</datalist>
+    </div>
     )
   }
 

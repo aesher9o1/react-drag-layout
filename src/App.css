@@ -7,20 +7,6 @@
   padding: 40px;
 }
 
-b {
-  font-family: 'Nunito Sans', sans-serif;
-  font-weight: 700;
-  color: rgb(97, 107, 112);
-  opacity: 0.8;
-  font-size: 15px;
-  line-height: 27px;
-}
-
-button {
-  -webkit-appearance: button;
-  border: none;
-  background: transparent;
-}
 
 ul {
   -webkit-column-count: 2;

@@ -10,3 +10,33 @@ body {
 code {
   font-family: 'Nunito Sans', sans-serif;
 }
+
+b {
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 700;
+  color: rgb(97, 107, 112);
+  opacity: 0.8;
+  font-size: 15px;
+  line-height: 27px;
+}
+
+button {
+  -webkit-appearance: button;
+  border: none;
+  background: transparent;
+}
+
+input{
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: 'Nunito Sans', sans-serif;
+  opacity: 0.8;
+  font-size: 15px;
+  line-height: 27px;
+  font-weight: 700;
+}
+
+input:focus{
+  outline: none;
+}

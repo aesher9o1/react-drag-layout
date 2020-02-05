@@ -36,16 +36,5 @@ export const getArrFromFirebase=()=>{
             
             resolve(tempList)
         })
-    })
-
-    
-}
-
-export const getLayoutForCondition = (condition)=>{
-    switch(condition){
-        case "active":
-            break;
-        case "warn":
-            break; 
-    }
+    })   
 }
