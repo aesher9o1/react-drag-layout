@@ -44,6 +44,7 @@ ul {
   border-width: 1px;
   border-style: solid;
   border-color: rgba(11, 99, 83, 0.2);
+  height: 50px;
   border-image: initial;
   margin-bottom: 16px;
 }

@@ -1,51 +1,61 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 import axios from 'axios'
+import skills from './config/demoSkills.json'
+import firebase from './config/firebase'
+import {getRandomKey, capitalizeFirstLetter} from './config/utils'
+
 
 function App() {
   
   const [options, setOptions] = useState([])
-  const [items, setItems] = useState(["🍰 Cake", "🍩 Donut", "🍎 Apple", "🍕 Pizza"])
+  const [items, setItems] = useState([])
   const [draggableItemOptions, setDraggableItemOptions] = useState({
     dragStartIndex : null,
     draggedOnIndex: null
   })
   
-  const capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1)
+
+  const setDatalistFromArray =(arr)=>{
+    let temp = []
+    for (const tag of arr)
+      temp.push(<option value={capitalizeFirstLetter(tag.name)} key={tag.name} />)
+
+    firebase.database().ref('dummy').once('value').then(snapshot=>{
+      var tempList = []
+      for(var i = 0;i <9;i++)
+          tempList.push(snapshot.val()[i])
+      
+      console.log(tempList)
+      setItems(tempList)
+      
+        
+      
+    })
+
+    setOptions(temp)
   }
 
   useEffect(() => {
-    // axios.get('https://api.stackexchange.com/2.2/tags?site=stackoverflow').then(res => {
-    //   let temp = []
-    //   for (const tag of res.data.items)
-    //     temp.push(<option value={capitalizeFirstLetter(tag.name)} key={tag.name} />)
+    if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') 
+      setDatalistFromArray(skills.items)
+    else
+      axios.get('https://api.stackexchange.com/2.2/tags?site=stackoverflow').then(res =>setDatalistFromArray(res.data.items))
 
-    //   setOptions(temp)
-    // })
-
-    // <label>Choose a browser from this list:
-
-    // <input list="browsers" name="myBrowser" /></label>
-    // <datalist id="browsers">
-    //   {options}
-    // </datalist>
   }, [])
 
 
   const onDragStart = (e, index) => {
     setDraggableItemOptions({...draggableItemOptions, dragStartIndex:index})
-   
-
+  
     e.dataTransfer.effectAllowed = "move"
     e.dataTransfer.setData("text/html", e.target.parentNode)
     e.dataTransfer.setDragImage(e.target.parentNode, 20, 20)
-
   }
 
   const onDragOver = (index) => {
     //hover on same place
-    if(draggableItemOptions.draggedOnIndex == index)
+    if(draggableItemOptions.draggedOnIndex === index)
       return
 
     setDraggableItemOptions({...draggableItemOptions, draggedOnIndex:index})
@@ -66,7 +76,7 @@ function App() {
       </div>
       <ul>
         {items.map((item, idx) => (
-          <li key={item} onDragOver={() => onDragOver(idx)} className="skills-list--item">
+          <li key={item || getRandomKey()} onDragOver={() => onDragOver(idx)} className="skills-list--item">
             <div
               className="drag"
               draggable
@@ -75,7 +85,7 @@ function App() {
               onDragEnd={onDragEnd}>
               <span style={{ display: "flex", alignItems: "center" }}>{item}</span>
               <button style={{ color: "white", opacity: 0.8 }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"   ><circle cx="12" cy="12" r="10"></circle><path d="M15 9l-6 6M9 9l6 6"></path>
+                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"   ><circle cx="12" cy="12" r="10"></circle><path d="M15 9l-6 6M9 9l6 6"></path>
                 </svg>
               </button>
             </div>
