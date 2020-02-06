@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Nunito', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(244, 245, 246);
@@ -8,11 +8,11 @@ body {
 }
 
 code {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Nunito', sans-serif;
 }
 
 b {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-weight: 700;
   color: rgb(97, 107, 112);
   opacity: 0.8;
@@ -30,7 +30,7 @@ input {
   width: 100%;
   border: none;
   background: transparent;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: 'Nunito', sans-serif;
   opacity: 0.8;
   font-size: 15px;
   line-height: 27px;
