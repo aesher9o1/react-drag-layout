@@ -1,30 +1,40 @@
-section {
-    text-align: center;
+#container {
+    width: 50%;
+    font-family: 'Nunito Sans', sans-serif;
+    align-items: center;
+    padding: 2em;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 
-.tasktwo {
-    width: 30%;
+#main_content {
+    width: 50%;
+    font-family: 'Nunito Sans', sans-serif;
+    margin: 2em;
+    min-height: 190px;
+    padding: 2em 0 1em 0;
+    background: white;
+    color: white;
+    position: absolute;
 }
 
-.num-hours {
-    font-size: 250px;
-    color: #017ffa;
-    font-style: normal;
+.number {
+    font-family: 'Nunito Sans', sans-serif;
+    color: #536DFE;
     font-weight: 900;
-    padding: 0;
-    margin-bottom: -22em;
+    margin-bottom: -110px;
+    font-size: 260px;
 }
 
 .hours {
-
-    font-weight: 900;
-    font-size: 70px;
+    color: black;
+    display: block;
+    font-size: 80px;
     font-style: normal;
-    margin-bottom: -22em;
+    font-weight: 900;
 }
 
 .of {
-    font-weight: 900;
-    font-size: 60px;
-    font-style: normal;
+    margin-top: -30px;
 }
