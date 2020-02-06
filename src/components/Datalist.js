@@ -7,9 +7,7 @@ function Datalist(props) {
     const [inputValue, setInputValue] = useState('')
     const [isListVisible, setIsListVisible] = useState(false)
 
-    useEffect(() => {
-
-    }, [props.options])
+    useEffect(() => { }, [props.options])
 
     const updateFilter = (e) => {
         let filteredOptions = []

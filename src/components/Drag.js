@@ -66,7 +66,6 @@ function Drag(props) {
     const handleDropdownChange = (option) => {
         const updatedList = Array.from(new Set([...skills.original, capitalizeFirstLetter(option.name)]))
 
-
         setArrToFirebase(updatedList)
         setSkills({
             original: updatedList,
@@ -128,7 +127,6 @@ function Drag(props) {
                 )}
             </ul>
         </div>
-
     )
 }
 
