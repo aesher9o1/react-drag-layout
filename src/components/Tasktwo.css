@@ -22,14 +22,14 @@
     font-family: 'Nunito', sans-serif;
     color: #536DFE;
     font-weight: 900;
-    margin-bottom: -105px;
-    font-size: 260px;
+    margin-bottom: -90px;
+    font-size: 15rem;
 }
 
 .hours {
     color: black;
     display: block;
-    font-size: 80px;
+    font-size: 4.5rem;
     font-style: normal;
     font-weight: 900;
 }
@@ -45,35 +45,35 @@
 
 h1 {
     font-weight: 900;
-    font-size: 24.4px;
+    font-size: 1.52rem;
     margin: 0;
     padding: 0;
 }
 
 h2 {
     font-weight: 900;
-    font-size: 20px;
+    font-size: 1.25rem;
     margin: 0;
     padding: 0;
 }
 
 h3 {
     font-weight: 900;
-    font-size: 16.5px;
+    font-size: 1.03rem;
     margin: 0;
     padding: 0;
 }
 
 h4 {
     font-weight: 900;
-    font-size: 11.6px;
+    font-size: 0.726rem;
     margin: 0;
     padding: 0;
 }
 
 h5 {
     font-weight: 900;
-    font-size: 9.6px;
+    font-size: 0.7rem;
     margin: 0;
     background: white;
     padding: 0;
@@ -82,7 +82,7 @@ h5 {
 
 .underline {
     margin-top: 4.3px;
-    width: 71%;
+    width: 67%;
     height: 7px;
     background: black;
     float: right
@@ -146,4 +146,41 @@ h5 {
     left: 78%;
     position: absolute;
     transform: rotate(-20deg);
+}
+
+@media only screen and (max-width: 768px) {
+    #main_content {
+        width: 100vw;
+        max-width: 100%;
+        margin: 2em 0 0 0;
+    }
+}
+
+
+@media only screen and (max-width: 414px) {
+    h1 {
+        font-size: 1.17rem;
+    }
+
+    h2 {
+        font-size: 0.96rem;
+    }
+
+    h3 {
+        font-size: 0.79rem;
+    }
+
+    h4 {
+        font-size: 0.56rem;
+    }
+
+    h5 {
+        font-size: 0.55rem;
+    }
+
+    .underline {
+
+        width: 66%;
+
+    }
 }

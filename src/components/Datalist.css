@@ -1,7 +1,7 @@
 .wrapper {
     position: absolute;
     padding: 0px 16px 16px 16px;
-    width: 41%;
+    width: 40vw;
     top: 3.5em;
     left: 0;
     z-index: 1000;

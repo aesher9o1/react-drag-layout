@@ -18,10 +18,10 @@ function App() {
 
 
   return (
-    <div>
+    <section >
       <Drag options={options} />
       <Tasktwo />
-    </div>
+    </section>
 
   )
 }
